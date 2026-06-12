@@ -34,7 +34,7 @@ jobs:
       - name: criar pull request para main
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: ${{ github.ref }}
+          source_branch: ${{ github.ref_name }}
           destination_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_title: "Merge automático da branch ${{ github.ref }} para main"
