@@ -31,6 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.build-and-test.result == 'success' }}
     steps:
+      - name: checkout codigo
+        uses: actions/checkout@v3
+
       - name: criar pull request para main
         uses: repo-sync/pull-request@v2
         with:
