@@ -1,0 +1,41 @@
+name: java CI/CD
+
+on:
+  push:
+    branches:
+      - feature/*
+
+jobs:
+  build-and-test:
+    name: buildando e testando codigo
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout código
+        uses: actions/checkout@v3
+
+      - name: configurar o jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: compilar projeto
+        run: mvn clean install
+
+      - name: rodar test
+        run: mvn test
+
+  merge-to-main:
+    name: merge para enviar ao main
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: criar pull request para main
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: ${{ github.ref }}
+          destination_branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: "Merge automático da branch ${{ github.ref }} para main"
+          pr_body: "Build e testes passaram. PR criado automaticamente."
