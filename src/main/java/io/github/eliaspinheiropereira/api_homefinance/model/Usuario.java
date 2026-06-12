@@ -5,8 +5,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 public class Usuario {
 
     @Id
@@ -17,6 +17,6 @@ public class Usuario {
     private String senha;
     private String telefone;
     private String cpf;
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Endereco> endereco;
 }

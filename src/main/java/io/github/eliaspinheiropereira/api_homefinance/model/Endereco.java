@@ -3,8 +3,8 @@ package io.github.eliaspinheiropereira.api_homefinance.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 public class Endereco {
 
     @Id
