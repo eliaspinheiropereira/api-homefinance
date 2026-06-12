@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: compilar projeto
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: rodar test
         run: mvn test
