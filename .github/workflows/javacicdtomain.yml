@@ -45,6 +45,5 @@ jobs:
         with:
           source_branch: ${{ github.ref_name }}
           destination_branch: main
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
           pr_title: "Merge automático da branch ${{ github.ref_name }} para main"
           pr_body: "Build e testes passaram. PR criado automaticamente."
