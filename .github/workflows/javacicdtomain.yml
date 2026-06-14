@@ -38,7 +38,7 @@ jobs:
       - name: checkout codigo
         uses: actions/checkout@v3
 
-      - name: criar pull request para main
+      - name: cria merge para pr pessoal
         uses: repo-sync/pull-request@v2
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
