@@ -29,7 +29,7 @@ jobs:
       - name: rodar test
         run: mvn test
 
-  merge-to-main:
+  create-pr-to-main:
     name: merge para enviar ao main
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -46,5 +46,5 @@ jobs:
           source_branch: ${{ github.ref_name }}
           destination_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_title: "Merge automático da branch ${{ github.ref }} para main"
+          pr_title: "Merge automatico da branch ${{ github.ref_name }} para main"
           pr_body: "Build e testes passaram. PR criado automaticamente."
