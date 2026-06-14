@@ -1,0 +1,49 @@
+name: java CI/CD
+
+on:
+  push:
+    branches:
+      - feature/*
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build-and-test:
+    name: buildando e testando codigo
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout código
+        uses: actions/checkout@v3
+
+      - name: configurar o jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: compilar projeto
+        run: mvn clean install -DskipTests
+
+      - name: rodar test
+        run: mvn test
+
+  merge-to-main:
+    name: merge para enviar ao main
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: ${{ needs.build-and-test.result == 'success' }}
+    steps:
+      - name: checkout codigo
+        uses: actions/checkout@v3
+
+      - name: criar pull request para main
+        uses: repo-sync/pull-request@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_APIHOMEFINANCE_TOKEN }}
+        with:
+          source_branch: ${{ github.ref_name }}
+          destination_branch: main
+          pr_title: "Merge automático da branch ${{ github.ref_name }} para main"
+          pr_body: "Build e testes passaram. PR criado automaticamente."
