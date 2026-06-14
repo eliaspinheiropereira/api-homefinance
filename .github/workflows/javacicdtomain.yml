@@ -40,6 +40,8 @@ jobs:
 
       - name: criar pull request para main
         uses: repo-sync/pull-request@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           source_branch: ${{ github.ref_name }}
           destination_branch: main
